@@ -11,7 +11,6 @@ import seaborn as sns
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score
-import gc #garbage collector
 
 
 # In[4]:
@@ -38,7 +37,7 @@ data0.describe()
 # In[7]:
 
 
-#check to see if there are any null values in the data0 dataset.
+#checking if there are any null values in the data0 dataset.
 #if so then drop these rows of data, as they could affect the performance of the model training
 
 if (data0.isnull().sum().sum()!=0):
@@ -49,7 +48,7 @@ if (data0.isnull().sum().sum()!=0):
 # In[8]:
 
 
-#check if the Labels dataset have all unique BookingIDs.
+#checking if the Labels dataset have all unique BookingIDs.
 #If there are duplicated BookingIDs, then drop these rows
 #as they will confuse training of the classification algo.
 if ((len(Labels))!=(len(Labels['bookingID'].unique()))):
@@ -205,28 +204,10 @@ ReducedFeatures_Dataset=pd.concat([data0,data1,data2,data3,data4,data5,data6,dat
 len(ReducedFeatures_Dataset)
 
 
-# In[25]:
-
-
-#release memory from holding all the data subsets.
-del [[data0, data1, data2, data3, data4, data5, data6, data7, data8, data9]]
-gc.collect()
-data0=pd.DataFrame()
-data1=pd.DataFrame()
-data2=pd.DataFrame()
-data3=pd.DataFrame()
-data4=pd.DataFrame()
-data5=pd.DataFrame()
-data6=pd.DataFrame()
-data7=pd.DataFrame()
-data8=pd.DataFrame()
-data9=pd.DataFrame()
-
-
 # In[23]:
 
 
-#check to see if there are any null values in the df_data0 dataset.
+#checking  to see if there are any null values in the df_data0 dataset.
 #if so then drop these rows of data, as they could affect the performance of the model training
 if (ReducedFeatures_Dataset.isnull().sum().sum()!=0):
     educedFeatures_Dataset.dropna(axis=0, how='any', thresh=None, subset=None, inplace=True)
